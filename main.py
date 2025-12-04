@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from apscheduler.schedulers.background import BackgroundScheduler
 from contextlib import asynccontextmanager
 
-from fetch import *
 from tasks import update_seeds, update_gear, update_cosmetics, update_eggs, update_eventshop, update_weather
 from db import init_db
 
