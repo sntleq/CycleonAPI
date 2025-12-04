@@ -1,3 +1,3 @@
-from tasks import update_cosmetics
+from tasks import update_weather
 
-update_cosmetics()
+update_weather()
