@@ -13,22 +13,6 @@ def get_db():
     finally:
         conn.close()
 
-DB_CONFIG = {
-    "host": "localhost",
-    "database": "cycleon",
-    "user": "postgres",
-    "password": "1"
-}
-
-@contextmanager
-def get_db():
-    conn = psycopg2.connect(**DB_CONFIG, cursor_factory=RealDictCursor)
-    try:
-        yield conn
-    finally:
-        conn.close()
-
-
 def init_db():
     with get_db() as conn:
         cursor = conn.cursor()
