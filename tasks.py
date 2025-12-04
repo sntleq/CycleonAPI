@@ -2,6 +2,7 @@ from fetch import fetch_seeds, fetch_gear, fetch_cosmetics, fetch_eggs, fetch_ev
 from save import save_seeds, save_gear, save_cosmetics, save_eggs, save_eventshop, save_weather_snapshot
 from db import get_db
 
+
 def update_seeds():
     """Fetch and save seeds data"""
     with get_db() as conn:
