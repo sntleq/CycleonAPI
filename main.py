@@ -18,10 +18,6 @@ scheduler = BackgroundScheduler()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     if not IS_BUILD:
-        # ---------------------- #
-        # Start-up (Deploy only)
-        # ---------------------- #
-        init_db()
 
         # Schedule cron jobs
         scheduler.add_job(update_seeds, 'cron', minute='*/5')
