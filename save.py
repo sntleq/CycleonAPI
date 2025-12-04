@@ -1,6 +1,3 @@
-from datetime import datetime
-
-
 def save_weather_snapshot(conn, weather_data):
     """
     Save weather snapshot to database
@@ -21,23 +18,23 @@ def save_weather_snapshot(conn, weather_data):
     try:
         weather_type = weather_data.get('type')
         duration = 0
+        last_updated = weather_data.get('lastUpdated')
 
         cursor.execute("""
             INSERT INTO weather_snapshot (weather, duration, timestamp)
-            VALUES (%s, %s, DATE_TRUNC('hour', CURRENT_TIMESTAMP) + 
-                   INTERVAL '5 min' * FLOOR(EXTRACT(MINUTE FROM CURRENT_TIMESTAMP) / 5))
+            VALUES (%s, %s, %s)
             ON CONFLICT (weather, timestamp) DO NOTHING
             RETURNING id
-        """, (weather_type, duration))
+        """, (weather_type, duration, last_updated))
 
         result = cursor.fetchone()
         conn.commit()
 
         if result:
-            print(f"Saved weather snapshot: {weather_type}")
+            print(f"Saved weather snapshot: {weather_type} at {last_updated}")
             return result[0]
         else:
-            print(f"Weather snapshot already exists: {weather_type}")
+            print(f"Weather snapshot already exists: {weather_type} at {last_updated}")
             return None
 
     except Exception as e:
@@ -46,6 +43,7 @@ def save_weather_snapshot(conn, weather_data):
         return None
     finally:
         cursor.close()
+        return None
 
 
 def save_seeds(conn, seeds_data):
@@ -95,6 +93,7 @@ def save_seeds(conn, seeds_data):
         return 0
     finally:
         cursor.close()
+        return None
 
 
 def save_gear(conn, gear_data):
@@ -144,6 +143,7 @@ def save_gear(conn, gear_data):
         return 0
     finally:
         cursor.close()
+        return None
 
 
 def save_cosmetics(conn, cosmetics_data):
@@ -193,6 +193,7 @@ def save_cosmetics(conn, cosmetics_data):
         return 0
     finally:
         cursor.close()
+        return None
 
 
 def save_eggs(conn, eggs_data):
@@ -242,6 +243,7 @@ def save_eggs(conn, eggs_data):
         return 0
     finally:
         cursor.close()
+        return None
 
 
 def save_eventshop(conn, eventshop_data):
@@ -291,3 +293,4 @@ def save_eventshop(conn, eventshop_data):
         return 0
     finally:
         cursor.close()
+        return None
