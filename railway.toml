@@ -1,0 +1,2 @@
+[build]
+env = { RAILWAY_BUILD = "1" }
