@@ -1,0 +1,29 @@
+# Test your FastAPI endpoints
+
+GET http://127.0.0.1:9000/
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:9000/items
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:9000/weathers
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:9000/item-stats/Beanstalk
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:9000/weather-stats/
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:9000/p-vals
+Accept: application/json

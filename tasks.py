@@ -1,3 +1,6 @@
+import boto3
+from dotenv import load_dotenv
+
 from fetch import fetch_seeds, fetch_gear, fetch_cosmetics, fetch_eggs, fetch_eventshop, fetch_weather
 from save import save_seeds, save_gear, save_cosmetics, save_eggs, save_eventshop, save_weather_snapshot
 from db import get_db
@@ -44,3 +47,15 @@ def update_weather():
         data = fetch_weather()
         if data:
             save_weather_snapshot(conn, data)
+
+
+load_dotenv()
+BUCKET_NAME = "amazon-sagemaker-248896561752-ap-southeast-2-c3asvvi6hbt3qa"
+s3 = boto3.client("s3")
+
+def save_csv(csv_file):
+    try:
+        s3.upload_file(csv_file, BUCKET_NAME, csv_file)
+        print(f"Uploaded {csv_file} to s3://{BUCKET_NAME}")
+    except Exception as e:
+        print("Failed to upload {csv_file}:", e)
