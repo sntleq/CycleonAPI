@@ -3,14 +3,28 @@ Prediction router for Cycleon predictions
 Add to main.py with: app.include_router(predict.router)
 """
 
+import os
 from fastapi import APIRouter, HTTPException, Query
 from prediction_service import PredictionService
 from config import SHOP_CYCLE_MINUTES
+from prepare_data import get_item_csv_for_shop, get_weather_csv
 
 router = APIRouter(prefix="/predict", tags=["predictions"])
 
 # Initialize prediction service (lazy load)
 _prediction_service = None
+
+async def refresh_shop_csv(shop: str):
+    """Refresh CSV data for a specific shop"""
+    os.makedirs("datasets", exist_ok=True)
+    print(f"Refreshing CSV for shop: {shop}")
+    await get_item_csv_for_shop(shop)
+
+async def refresh_weather_csv():
+    """Refresh weather CSV data"""
+    os.makedirs("datasets", exist_ok=True)
+    print(f"Refreshing weather CSV")
+    await get_weather_csv()
 
 def get_prediction_service():
     """Lazy load prediction service"""
@@ -22,7 +36,7 @@ def get_prediction_service():
 
 
 @router.get("/items/{item_name}")
-def get_item_predictions(
+async def get_item_predictions(
     item_name: str,
     shop: str = Query(None, description="Shop name (e.g., 'seeds', 'eggs'). Auto-detected if not provided."),
     cycle_minutes: int = Query(None, description="Shop cycle time in minutes (optional)")
@@ -35,16 +49,42 @@ def get_item_predictions(
     - cycle_probabilities: 5 cycle probabilities (as percentage 0-100)
     - confidence_windows: 3 confidence levels (80%, 85%, 90%) or empty if insufficient data
     """
-    service = get_prediction_service()
-
-    # Auto-detect shop if not provided
+    # Auto-detect shop(s) if not provided
     if shop is None:
-        all_items = service.list_available_items()
-        matching = [i for i in all_items if i['item'] == item_name]
-        if not matching:
+        from db import get_db
+        with get_db() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT shop, COUNT(*) as cnt
+                FROM item_snapshot 
+                WHERE item = %s
+                GROUP BY shop
+                ORDER BY cnt DESC
+            """, (item_name,))
+            results = cursor.fetchall()
+            cursor.close()
+
+        if not results:
             raise HTTPException(status_code=404, detail=f"Item '{item_name}' not found in any shop")
-        shop = matching[0]['shop']
-        print(f"Auto-detected shop: {shop} for item: {item_name}")
+
+        shops = [r['shop'] if isinstance(r, dict) else r[0] for r in results]
+        print(f"Auto-detected shops: {shops} for item: {item_name}")
+
+        # Refresh CSV for ALL shops that have this item
+        for shop_name in shops:
+            await refresh_shop_csv(shop_name)
+
+        # Use most frequent shop for prediction
+        shop = shops[0]
+        print(f"Using most frequent shop: {shop}")
+    else:
+        # Refresh CSV for THIS SHOP ONLY
+        await refresh_shop_csv(shop)
+
+    # Reinitialize service to reload fresh data
+    global _prediction_service
+    _prediction_service = None
+    service = get_prediction_service()
 
     # Get cycle time from config or use provided value
     if cycle_minutes is None:
@@ -70,7 +110,7 @@ def get_item_predictions(
 
 
 @router.get("/weather/{weather_type}")
-def get_weather_predictions(weather_type: str):
+async def get_weather_predictions(weather_type: str):
     """
     Get predictions for a specific weather type
 
@@ -79,6 +119,12 @@ def get_weather_predictions(weather_type: str):
     - time_window_probabilities: 5 time windows (5, 10, 15, 20, 25 min) with probabilities as percentage 0-100
     - confidence_windows: 3 confidence levels (80%, 85%, 90%)
     """
+    # Refresh weather CSV ONLY
+    await refresh_weather_csv()
+
+    # Reinitialize service to reload fresh data
+    global _prediction_service
+    _prediction_service = None
     service = get_prediction_service()
 
     try:
@@ -97,7 +143,7 @@ def get_weather_predictions(weather_type: str):
 
 
 @router.get("/items")
-def list_items():
+async def list_items():
     """List all available items and their shops"""
     service = get_prediction_service()
 
@@ -112,7 +158,7 @@ def list_items():
 
 
 @router.get("/weather")
-def list_weather():
+async def list_weather():
     """List all available weather types"""
     service = get_prediction_service()
 
@@ -127,9 +173,10 @@ def list_weather():
 
 
 @router.get("/health")
-def prediction_health():
+async def prediction_health():
     """Health check for prediction service"""
     try:
+        os.makedirs("datasets", exist_ok=True)
         service = get_prediction_service()
         return {
             "status": "healthy",

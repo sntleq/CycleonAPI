@@ -10,7 +10,7 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:9000/predict/items/Tomato
+GET http://127.0.0.1:9000/predict/items/Rake
 Accept: application/json
 
 ###

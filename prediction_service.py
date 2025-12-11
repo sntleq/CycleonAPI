@@ -4,7 +4,7 @@ Unified prediction service that switches between SageMaker and Statistical model
 
 import pandas as pd
 import os
-from typing import Optional, List, Dict
+from typing import List, Dict
 from config import PREDICTION_MODE, DATASETS_PATH, PREDICTIONS_PATH
 from statistical_predictor import StatisticalItemPredictor, StatisticalWeatherPredictor
 
@@ -14,11 +14,12 @@ class PredictionService:
 
     def __init__(self):
         self.mode = PREDICTION_MODE
+        self._item_predictor = None
+        self._weather_predictor = None
 
         if self.mode == 'statistical':
             print(f"✓ Prediction Service initialized in STATISTICAL mode")
-            self.item_predictor = StatisticalItemPredictor(DATASETS_PATH)
-            self.weather_predictor = StatisticalWeatherPredictor(DATASETS_PATH)
+            # Don't load predictors yet - load them lazily when needed
 
         elif self.mode == 'sagemaker':
             print(f"✓ Prediction Service initialized in SAGEMAKER mode")
@@ -42,6 +43,22 @@ class PredictionService:
 
         else:
             raise ValueError(f"Invalid PREDICTION_MODE: {self.mode}")
+
+    @property
+    def item_predictor(self):
+        """Lazy load item predictor"""
+        if self._item_predictor is None:
+            print("Loading item predictor...")
+            self._item_predictor = StatisticalItemPredictor(DATASETS_PATH)
+        return self._item_predictor
+
+    @property
+    def weather_predictor(self):
+        """Lazy load weather predictor"""
+        if self._weather_predictor is None:
+            print("Loading weather predictor...")
+            self._weather_predictor = StatisticalWeatherPredictor(DATASETS_PATH)
+        return self._weather_predictor
 
     def get_item_predictions(
         self,
