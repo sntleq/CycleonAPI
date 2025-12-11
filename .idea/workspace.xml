@@ -4,17 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ef412c5-5dac-4880-a989-d3e16006154d" name="Changes" comment="fixed run_update_weather.py">
-      <change afterPath="$PROJECT_DIR$/prepare_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run_retrain_seeds.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stats.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_stats.http" afterDir="false" />
+    <list default="true" id="4ef412c5-5dac-4880-a989-d3e16006154d" name="Changes" comment="endpoints ready for stats and csv">
+      <change afterPath="$PROJECT_DIR$/run_retrain_cosmetics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_retrain_eggs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_retrain_eventshop.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_retrain_gear.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_retrain_weather.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sagemaker/batch_predictions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sagemaker/inference_script.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sagemaker/sagemaker_training.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sagemaker/training_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CycleonAPI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CycleonAPI.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prepare_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/prepare_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_retrain_seeds.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_retrain_seeds.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_main.http" beforeDir="false" afterPath="$PROJECT_DIR$/test_prepare_data.http" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +33,17 @@
         <option value="FastAPI test_main" />
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -45,6 +61,9 @@
     &quot;accountId&quot;: &quot;fee3d408-a88d-40b5-9734-9f34866348d5&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -53,43 +72,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "FastAPI.CycleonAPI.executor": "Run",
-    "HTTP Request.test_main | #1.executor": "Run",
-    "HTTP Request.test_main | #2.executor": "Run",
-    "HTTP Request.test_main | #4.executor": "Run",
-    "HTTP Request.test_main | #5.executor": "Run",
-    "HTTP Request.test_main | #6.executor": "Run",
-    "HTTP Request.test_predict | #2.executor": "Run",
-    "HTTP Request.test_predict | #3.executor": "Run",
-    "HTTP Request.test_prepare_data | #2.executor": "Run",
-    "HTTP Request.test_prepare_data | #3.executor": "Run",
-    "HTTP Request.test_stats | #2.executor": "Run",
-    "HTTP Request.test_stats | #4.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Jodeci/PycharmProjects/CycleonAPI",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "configurable.group.editor",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;FastAPI.CycleonAPI.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_main | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_main | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_main | #4.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_main | #5.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_main | #6.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_predict | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_predict | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_prepare_data | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_prepare_data | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_stats | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_stats | #4.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jodeci/PycharmProjects/CycleonAPI&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
-      "PostgreSQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
+      &quot;PostgreSQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Jodeci\PycharmProjects\CycleonAPI" />
@@ -100,9 +119,6 @@
     </key>
   </component>
   <component name="RunManager" selected="FastAPI.CycleonAPI">
-    <configuration name="test_predict | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/test_predict.http" executionIdentifier="#2" index="2" runType="Run single request">
-      <method v="2" />
-    </configuration>
     <configuration name="test_predict | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/test_predict.http" executionIdentifier="#3" index="3" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -110,6 +126,9 @@
       <method v="2" />
     </configuration>
     <configuration name="test_prepare_data | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/test_prepare_data.http" executionIdentifier="#3" index="3" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="test_stats | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/test_stats.http" executionIdentifier="#2" index="2" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="test_stats | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/test_stats.http" executionIdentifier="#4" index="4" runType="Run single request">
@@ -123,7 +142,6 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="$PROJECT_DIR$/.venv/Scripts/python.exe" />
-      <option name="SDK_NAME" value="Python 3.13 (CycleonAPI)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -133,20 +151,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="FastAPI.CycleonAPI" />
-      <item itemvalue="HTTP Request.test_predict | #2" />
       <item itemvalue="HTTP Request.test_predict | #3" />
       <item itemvalue="HTTP Request.test_prepare_data | #2" />
       <item itemvalue="HTTP Request.test_prepare_data | #3" />
+      <item itemvalue="HTTP Request.test_stats | #2" />
       <item itemvalue="HTTP Request.test_stats | #4" />
+      <item itemvalue="FastAPI.CycleonAPI" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.test_stats | #2" />
         <item itemvalue="HTTP Request.test_prepare_data | #3" />
         <item itemvalue="HTTP Request.test_prepare_data | #2" />
         <item itemvalue="HTTP Request.test_stats | #4" />
         <item itemvalue="HTTP Request.test_predict | #3" />
-        <item itemvalue="HTTP Request.test_predict | #2" />
       </list>
     </recent_temporary>
   </component>
@@ -173,7 +191,14 @@
       <workItem from="1764859301953" duration="7911000" />
       <workItem from="1765357134086" duration="2378000" />
       <workItem from="1765371837483" duration="538000" />
-      <workItem from="1765372389236" duration="13707000" />
+      <workItem from="1765372389236" duration="19305000" />
+      <workItem from="1765396675767" duration="167000" />
+      <workItem from="1765396873471" duration="7441000" />
+      <workItem from="1765404394591" duration="1623000" />
+      <workItem from="1765406042523" duration="595000" />
+      <workItem from="1765406660784" duration="1128000" />
+      <workItem from="1765407853456" duration="1280000" />
+      <workItem from="1765410448023" duration="293000" />
     </task>
     <task id="LOCAL-00001" summary="data fetch and save functionality (local)">
       <option name="closed" value="true" />
@@ -263,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764867305207</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="endpoints ready for stats and csv">
+      <option name="closed" value="true" />
+      <created>1765389892795</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1765389892795</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,10 +325,11 @@
     <MESSAGE value="added run py files for cron jobs" />
     <MESSAGE value="moved cron jobs run py files" />
     <MESSAGE value="fixed run_update_weather.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed run_update_weather.py" />
+    <MESSAGE value="endpoints ready for stats and csv" />
+    <option name="LAST_COMMIT_MESSAGE" value="endpoints ready for stats and csv" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/CycleonAPI$CycleonAPI.coverage" NAME="CycleonAPI Coverage Results" MODIFIED="1765389592743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/CycleonAPI$CycleonAPI.coverage" NAME="CycleonAPI Coverage Results" MODIFIED="1765405683560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

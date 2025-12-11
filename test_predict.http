@@ -1,0 +1,26 @@
+# Test your FastAPI endpoints
+
+GET http://127.0.0.1:9000/predict/health
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:9000/predict/items
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:9000/predict/items/Tomato
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:9000/predict/weather
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:9000/predict/weather/rain
+Accept: application/json
+
+###

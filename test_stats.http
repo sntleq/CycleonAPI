@@ -10,7 +10,7 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:9000/weathers
+GET http://127.0.0.1:9000/weather
 Accept: application/json
 
 ###

@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-import stats, prepare_data
+import stats, prepare_data, predict
 
 
 @asynccontextmanager
@@ -12,3 +12,4 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(stats.router)
 app.include_router(prepare_data.router)
+app.include_router(predict.router)

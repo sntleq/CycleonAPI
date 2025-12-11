@@ -1,41 +1,37 @@
 import asyncio
 from datetime import datetime
-from prepare_data import get_seeds_csv
+from prepare_data import get_cosmetics_csv
 from tasks import save_csv, download_predictions
 from sagemaker.sagemaker_training import train_shop_model, generate_shop_predictions
 
 BUCKET_NAME = "amazon-sagemaker-248896561752-ap-southeast-2-c3asvvi6hbt3qa"
-CYCLE_MINUTES = 5  # seeds refresh time
+CYCLE_MINUTES = 240
 
 
 async def main():
     print(f"\n{'='*60}")
-    print(f"SEEDS RETRAIN - {datetime.now()}")
+    print(f"COSMETICS RETRAIN - {datetime.now()}")
     print(f"{'='*60}\n")
 
-    # 1. Generate CSV
-    csv_file = await get_seeds_csv()
+    csv_file = await get_cosmetics_csv()
     save_csv(csv_file)
 
-    # 2. Train model
     estimator = train_shop_model(
-        shop_name="seeds",
+        shop_name="cosmetics",
         bucket_name=BUCKET_NAME
     )
 
-    # 3. Generate predictions
     generate_shop_predictions(
-        shop_name="seeds",
+        shop_name="cosmetics",
         model_s3_path=estimator.model_data,
         bucket_name=BUCKET_NAME,
         cycle_minutes=CYCLE_MINUTES
     )
 
-    # 4. Download predictions from S3 to project folder
-    download_predictions("seeds")
+    download_predictions("cosmetics")
 
     print(f"\n{'='*60}")
-    print("SEEDS COMPLETE! 🎉")
+    print("COSMETICS COMPLETE! 🎉")
     print(f"{'='*60}\n")
 
 

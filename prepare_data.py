@@ -1,5 +1,5 @@
 import asyncio
-
+import os
 from fastapi import APIRouter
 import pandas as pd
 from db import get_db
@@ -115,8 +115,6 @@ async def get_items_csv():
         get_cosmetics_csv()
     )
     return results
-
-import os
 
 @router.get("/csv/weather")
 async def get_weather_csv():
